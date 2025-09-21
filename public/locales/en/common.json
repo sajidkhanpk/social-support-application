@@ -1,0 +1,16 @@
+{
+  "changeLanguage": "Change language",
+  "selectLanguage": "Select Language",
+  "language": "Language",
+  "currentLanguage": "Current language",
+  "help_me_write": "Help me write",
+  "action": {
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "discard": "Discard",
+    "clear": "Clear",
+    "edit": "Edit",
+    "accept": "Accept"
+  }
+}

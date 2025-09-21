@@ -1,0 +1,16 @@
+{
+  "changeLanguage": "تغيير اللغة",
+  "selectLanguage": "اختر اللغة",
+  "language": "اللغة",
+  "currentLanguage": "اللغة الحالية",
+  "help_me_write": "ساعدني في الكتابة",
+  "action": {
+    "previous": "السابق",
+    "next": "التالي",
+    "submit": "إرسال",
+    "discard": "تجاهل",
+    "clear": "مسح",
+    "edit": "تعديل",
+    "accept": "موافقة"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "get_help": "Get help from AI",
+  "your_query": "Your Query",
+  "generating": "Generating...",
+  "generate_content": "Generate Content",
+  "write_for_me": "Generated text",
+  "your_generated_content": "Your generated content will appear here",
+  "provide_brief_description": "Provide a brief description to help us generate an accurate description for you",
+  "enter_query": "Please enter your query.",
+  "failed_to_generate_response": "Failed to generate content. Please try again."
+}

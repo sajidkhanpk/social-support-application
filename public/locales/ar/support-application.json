@@ -1,0 +1,47 @@
+{
+  "steps": {
+    "personal_info": "المعلومات الشخصية",
+    "family_and_financial_info": "معلومات الأسرة والمالية",
+    "situation_description": "وصف الحالة"
+  },
+  "form": {
+    "first_name": "الاسم الأول",
+    "national_id": "الرقم الوطني",
+    "dob": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "email": "البريد الإلكتروني",
+    "select_gender": "اختر الجنس",
+    "marital_status": "الحالة الاجتماعية",
+    "select_marital_status": "اختر الحالة الاجتماعية",
+    "dependents": "المعالين",
+    "employment_status": "الحالة الوظيفية",
+    "select_employment_status": "اختر الحالة الوظيفية",
+    "monthly_income": "الدخل الشهري",
+    "housing_status": "الحالة السكنية",
+    "select_housing_status": "اختر الحالة السكنية",
+    "descritbe_situation": "صف وضعك...",
+    "current_financial_situation": "الوضع المالي الحالي",
+    "employment_circumstances": "ظروف العمل",
+    "reason_for_applying": "سبب التقديم",
+    "gender_options": {
+      "male": "ذكر",
+      "female": "أنثى"
+    },
+    "marital_status_options": {
+      "single": "أعزب/عزباء",
+      "married": "متزوج/متزوجة"
+    },
+    "employment_status_options": {
+      "employed": "موظف",
+      "unemployed": "عاطل عن العمل"
+    },
+    "housing_status_options": {
+      "home_owner": "مالك منزل",
+      "renter": "مستأجر",
+      "living_with_family": "يعيش مع الأسرة",
+      "homeless": "بلا مأوى",
+      "temporary_housing": "سكن مؤقت",
+      "other": "أخرى"
+    }
+  }
+}

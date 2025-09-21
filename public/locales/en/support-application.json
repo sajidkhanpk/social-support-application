@@ -1,0 +1,51 @@
+{
+  "steps": {
+    "personal_info": "Personal Information",
+    "family_and_financial_info": "Family & Financial Info",
+    "situation_description": "Situation Descriptions"
+  },
+  "form": {
+    "first_name": "First Name",
+    "national_id": "National ID",
+    "dob": "Date of birth",
+    "gender": "Gender",
+    "country": "Country",
+    "state": "State",
+    "city": "City",
+    "address": "Address",
+    "email": "Email",
+    "select_gender": "Select gender",
+    "marital_status": "Marital status",
+    "select_marital_status": "Select marital status",
+    "dependents": "Dependents",
+    "employment_status": "Employment status",
+    "select_employment_status": "Select employment status",
+    "monthly_income": "Monthly income",
+    "housing_status": "Housing status",
+    "select_housing_status": "Select housing status",
+    "descritbe_situation": "Describe your situation...",
+    "current_financial_situation": "Current Financial Situation",
+    "employment_circumstances": "Employment Circumstances",
+    "reason_for_applying": "Reason For Applying",
+    "gender_options": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "marital_status_options": {
+      "single": "Single",
+      "married": "Married"
+    },
+    "employment_status_options": {
+      "employed": "Employed",
+      "unemployed": "Unemployed"
+    },
+    "housing_status_options": {
+      "home_owner": "Home owner",
+      "renter": "Renter",
+      "living_with_family": "Living with family",
+      "homeless": "Homeless",
+      "temporary_housing": "Temporary housing",
+      "other": "Other"
+    }
+  }
+}

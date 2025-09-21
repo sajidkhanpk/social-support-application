@@ -1,0 +1,11 @@
+{
+  "get_help": "الحصول على المساعدة من الذكاء الاصطناعي",
+  "your_query": "استفسارك",
+  "generating": "جاري الإنشاء...",
+  "generate_content": "إنشاء محتوى",
+  "write_for_me": "النص المُنشأ",
+  "your_generated_content": "سيظهر المحتوى الذي تم إنشاؤه هنا",
+  "provide_brief_description": "قدّم وصفًا موجزًا لمساعدتنا في إنشاء وصف دقيق لك",
+  "enter_query": "يرجى إدخال استفسارك.",
+  "failed_to_generate_response": "فشل في إنشاء المحتوى. يرجى المحاولة مرة أخرى."
+}
