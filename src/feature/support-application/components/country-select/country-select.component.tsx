@@ -1,9 +1,10 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import type { FieldPath, FieldValues } from "react-hook-form";
 import Autocomplete from "@/shared/components/molecules/autocomplete/autocomplete.component";
 import type { AutocompleteOption } from "@/shared/components/molecules/autocomplete/autocomplete.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Typography } from "@/shared/components/atoms/typography";
+import { useTranslation } from "react-i18next";
 
 type RHFCountrySelectProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
@@ -11,9 +12,13 @@ type RHFCountrySelectProps<TFieldValues extends FieldValues> = {
 };
 
 function RHFCountrySelect<TFieldValues extends FieldValues>({ name }: RHFCountrySelectProps<TFieldValues>) {
-  const { control } = useFormContext<TFieldValues>();
+  const { trigger, control } = useFormContext<TFieldValues>();
+  const selectedCountry = useWatch({ control, name });
   const [isLoading, setIsLoading] = useState(false);
   const [searchCountryOptions, setCountrySearchOptions] = useState<AutocompleteOption[]>([]);
+  const { t } = useTranslation(["support-application", "common"], {
+    useSuspense: true,
+  });
 
   const handleCountrySearch = async (searchTerm: string) => {
     setIsLoading(true);
@@ -38,8 +43,8 @@ function RHFCountrySelect<TFieldValues extends FieldValues>({ name }: RHFCountry
   };
 
   const customCountryRenderOption = (option: AutocompleteOption) => (
-    <div key={option.value} className="px-2 cursor-pointer flex items-center">
-      <div className="w-8 h-8 bg-blue-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
+    <div key={option.value} className="px-2 cursor-pointer flex items-center gap-3">
+      <div className="w-8 h-8 bg-blue-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
         <span className="text-blue-600 font-bold text-sm">{option.flag}</span>
       </div>
       <div>
@@ -49,14 +54,19 @@ function RHFCountrySelect<TFieldValues extends FieldValues>({ name }: RHFCountry
     </div>
   );
 
+  useEffect(() => {
+    if (selectedCountry) trigger(name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCountry]);
+
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState }) => (
         <div className="flex flex-col gap-1">
-          <label htmlFor="countrySelect">Country</label>
-          <Autocomplete id="countrySelect" options={searchCountryOptions} value={field.value} onChange={field.onChange} onInputChange={handleCountrySearch} isLoading={isLoading} placeholder="Select country" noOptionsMessage="No result found" renderOption={customCountryRenderOption} />
+          <label htmlFor="country-select">{t("support-application:form.country")}</label>
+          <Autocomplete id="country-select" options={searchCountryOptions} value={field.value} onChange={field.onChange} onInputChange={handleCountrySearch} isLoading={isLoading} placeholder={t("support-application:form.select_country")} noOptionsMessage={t("common:no_result_found")} renderOption={customCountryRenderOption} error={Boolean(fieldState.error)} />
 
           {fieldState.error && (
             <Typography variant="body1" as="span" color="error">

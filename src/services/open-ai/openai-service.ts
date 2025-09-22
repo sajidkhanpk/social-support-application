@@ -1,7 +1,7 @@
 import { openAIAPI } from "@/lib/axios/api-instances";
 import type { OpenAIError, OpenAIRequest, OpenAIResponse } from "./openai-service.types";
 
-export const generateContent = async (prompt: string): Promise<string> => {
+export const generateContent = async (prompt: string, locale = "en"): Promise<string> => {
   try {
     const requestData: OpenAIRequest = {
       model: "gpt-3.5-turbo",

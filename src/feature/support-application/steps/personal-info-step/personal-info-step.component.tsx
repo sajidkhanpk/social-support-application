@@ -38,7 +38,7 @@ export const PersonalInformationStep: React.FC = () => {
       <RHFTextField<SupportApplicationFormValues> name="state" label={t("form.state")} />
       <RHFTextField<SupportApplicationFormValues> name="city" label={t("form.city")} />
       <RHFTextField<SupportApplicationFormValues> name="address" label={t("form.address")} />
-      <RHFInternationalPhoneInput<SupportApplicationFormValues> name="phone" defaultCountry="us" />
+      <RHFInternationalPhoneInput<SupportApplicationFormValues> name="phone" defaultCountry="us" label={t("form.phone")} placeholder={t("form.phone_placeholder")} />
 
       <RHFTextField<SupportApplicationFormValues> name="email" label={t("form.email")} type="email" />
     </div>

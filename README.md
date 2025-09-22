@@ -81,3 +81,36 @@ Create a .env file in the root directory and add:
 
 - The project is kept simple for demonstration purposes.
 - Ready for scaling by adding more features, pages, and APIs.
+
+Create flow diagram..
+Create README.md
+Explain project and features
+Explain tech used
+Explain how to use project locally
+DOB should be with labels --> RTL
+Submission page should be there instead of console.log with mockAPI
+axios/interceptors with 401/500 handling
+Error boundary
+
+---
+
+AI response in selected locale
+HAndle Arabic stuff in Help me write
+Remove unused locale (language for model response) in open ai service
+
+// --------------- TODO ------------------ //
+
+// --------------- DONE ------------------ //
+Phone# should be with labels --> RTL
+Phone dropdown overflow in small screens
+Phone borders for RTL
+Add type='button' to ai modal buttons
+Reset state on ai modal close
+Handle 0 income and dependents
+default propmt from user input
+Monthly income currency symbol is missing
+Translation missing for many labels
+Country Error state
+
+// --------------- Prompt ------------------ //
+I am unemployed with no income. Help me describe my financial hardship.

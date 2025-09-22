@@ -1,18 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import type {
-  PersistedStep,
-  SupportApplicationFormValues,
-  TriggerableFields,
-} from "./support-application-form.types";
+import type { PersistedStep, SupportApplicationFormValues, TriggerableFields } from "./support-application-form.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createSupportApplicationSchema } from "./support-application-form.schema";
-import {
-  APPLICATION_STEP_STORAGE_KEY,
-  APPLICATION_STORAGE_KEY,
-  steps,
-  stepSchemas,
-  SUPPORT_APPLICATION_FORM_DEFAULT_VALUES,
-} from "./lib/constants";
+import { APPLICATION_STEP_STORAGE_KEY, APPLICATION_STORAGE_KEY, steps, stepSchemas, SUPPORT_APPLICATION_FORM_DEFAULT_VALUES } from "./lib/constants";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "@/shared/contexts/language-context";
@@ -20,31 +10,22 @@ import { useLanguage } from "@/shared/contexts/language-context";
 export function useSupportApplicationForm() {
   // translation
   const { currentLanguage } = useLanguage();
-  const { t } = useTranslation(
-    ["support-application", "common", "validations"],
-    {
-      useSuspense: true,
-    }
-  );
+  const { t } = useTranslation(["support-application", "common", "validations"], {
+    useSuspense: true,
+  });
 
   // states
-  const persistedStepData: PersistedStep = JSON.parse(
-    localStorage.getItem(APPLICATION_STEP_STORAGE_KEY) || "{}"
-  );
-  const [currentStep, setCurrentStep] = useState<number>(
-    persistedStepData?.currentStep || 0
-  );
-  const [completedSteps, setCompletedSteps] = useState<number[]>(
-    persistedStepData?.completedSteps || []
-  );
+  const persistedStepData: PersistedStep = JSON.parse(localStorage.getItem(APPLICATION_STEP_STORAGE_KEY) || "{}");
+  const [currentStep, setCurrentStep] = useState<number>(persistedStepData?.currentStep || 0);
+  const [completedSteps, setCompletedSteps] = useState<number[]>(persistedStepData?.completedSteps || []);
 
   // rhf
   const persistedFormData = localStorage.getItem(APPLICATION_STORAGE_KEY);
   const methods = useForm<SupportApplicationFormValues>({
+    mode: "onBlur", // validates only when leaving input
+    reValidateMode: "onBlur", // re-validates only on blur again
     resolver: zodResolver(createSupportApplicationSchema(t)),
-    defaultValues: persistedFormData
-      ? (JSON.parse(persistedFormData) as SupportApplicationFormValues)
-      : SUPPORT_APPLICATION_FORM_DEFAULT_VALUES,
+    defaultValues: persistedFormData ? (JSON.parse(persistedFormData) as SupportApplicationFormValues) : SUPPORT_APPLICATION_FORM_DEFAULT_VALUES,
   });
   const {
     trigger,
@@ -59,9 +40,7 @@ export function useSupportApplicationForm() {
   const isStepValid = async (stepIndex: number) => {
     try {
       const stepSchema = stepSchemas[stepIndex];
-      const stepField = Object.keys(
-        stepSchema.shape
-      ) as unknown as keyof SupportApplicationFormValues;
+      const stepField = Object.keys(stepSchema.shape) as unknown as keyof SupportApplicationFormValues;
       methods.trigger(stepField);
       const values = methods.getValues();
       await stepSchema.parseAsync(values);
@@ -115,9 +94,7 @@ export function useSupportApplicationForm() {
 
   // Update errors on changing translations
   useEffect(() => {
-    const erroredFields = Object.keys(errors).filter(
-      (field): field is TriggerableFields => field !== "root"
-    );
+    const erroredFields = Object.keys(errors).filter((field): field is TriggerableFields => field !== "root");
 
     if (erroredFields.length > 0) {
       trigger(erroredFields);

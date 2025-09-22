@@ -7,33 +7,15 @@ import { FamilyAndFinancialSupportStep } from "./steps/family-and-financial-info
 import Stepper from "@/shared/components/molecules/stepper/stepper.component";
 import { SituationDescriptionStep } from "./steps/situation-description/situation-description-step.component";
 import { useTranslation } from "react-i18next";
-import {
-  ActionButtonsSkeleton,
-  FormFieldsSkeleton,
-} from "./components/application-skeleton/application-skeleton.component";
+import { ActionButtonsSkeleton, FormFieldsSkeleton } from "./components/application-skeleton/application-skeleton.component";
 import { useSupportApplicationForm } from "./support-application-form.hook";
 
 function SupportApplicationForm() {
-  const {
-    t,
-    methods,
-    currentStep,
-    completedSteps,
-    handleStepClick,
-    onSubmit,
-    prev,
-    next,
-  } = useSupportApplicationForm();
+  const { t, methods, currentStep, completedSteps, handleStepClick, onSubmit, prev, next } = useSupportApplicationForm();
 
   return (
     <div>
-      <Stepper
-        steps={steps.map((step) => t(`support-application:${step}`))}
-        currentStep={currentStep}
-        completedSteps={completedSteps}
-        onStepClick={handleStepClick}
-        className="flex-col gap-6 sm:flex-row md:gap-1"
-      />
+      <Stepper steps={steps.map((step) => t(`support-application:${step}`))} currentStep={currentStep} completedSteps={completedSteps} onStepClick={handleStepClick} className="flex-col gap-6 sm:flex-row md:gap-1" />
       <Suspense
         fallback={
           <div className="flex flex-col gap-3">
@@ -50,16 +32,11 @@ function SupportApplicationForm() {
               {currentStep === 2 && <SituationDescriptionStep />}
             </div>
             <div className="mt-6 flex flex-col md:flex-row justify-between gap-4">
-              <Button
-                className="w-full"
-                type="button"
-                onClick={prev}
-                disabled={currentStep === 0}
-              >
+              <Button className="w-full" onClick={prev} disabled={currentStep === 0}>
                 {t("common:action.previous")}
               </Button>
               {currentStep < steps.length - 1 ? (
-                <Button className="w-full" type="button" onClick={next}>
+                <Button className="w-full" onClick={next}>
                   {t("common:action.next")}
                 </Button>
               ) : (

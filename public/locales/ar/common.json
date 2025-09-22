@@ -4,6 +4,8 @@
   "language": "اللغة",
   "currentLanguage": "اللغة الحالية",
   "help_me_write": "ساعدني في الكتابة",
+  "no_result_found": "لم يتم العثور على نتائج",
+  "loading": "جاري التحميل",
   "action": {
     "previous": "السابق",
     "next": "التالي",
@@ -11,6 +13,6 @@
     "discard": "تجاهل",
     "clear": "مسح",
     "edit": "تعديل",
-    "accept": "موافقة"
+    "accept": "موافق"
   }
 }

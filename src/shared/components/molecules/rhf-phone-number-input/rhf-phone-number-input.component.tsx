@@ -3,6 +3,7 @@ import type { FieldPath, FieldValues } from "react-hook-form";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { Typography } from "../../atoms/typography";
+import { useLanguage } from "@/shared/contexts/language-context";
 
 interface RHFInternationalPhoneInputProps<TFormValues extends FieldValues> {
   name: FieldPath<TFormValues>;
@@ -11,14 +12,20 @@ interface RHFInternationalPhoneInputProps<TFormValues extends FieldValues> {
   defaultCountry?: string;
 }
 
-export function RHFInternationalPhoneInput<TFormValues extends FieldValues>({ name, label = "Enter phone number", placeholder = "Enter phone number", defaultCountry = "ua" }: RHFInternationalPhoneInputProps<TFormValues>) {
+export function RHFInternationalPhoneInput<TFormValues extends FieldValues>({ name, label, placeholder, defaultCountry = "ua" }: RHFInternationalPhoneInputProps<TFormValues>) {
   const { control } = useFormContext<TFormValues>();
+  const { languageDir } = useLanguage();
+
+  const isRTL = languageDir === "rtl";
+
+  const inputBorderRadius = isRTL ? "!rounded-l-md !rounded-r-none" : "!rounded-r-md !rounded-l-none";
+  const selectorBorderRadius = isRTL ? "!rounded-r-md !rounded-l-none" : "!rounded-l-md !rounded-r-none";
+  const dropdownPosition = isRTL ? "right-0" : "left-0";
 
   return (
     <Controller
       name={name}
       control={control}
-      rules={{ required: "Phone number is required" }}
       render={({ field, fieldState }) => (
         <div className="flex flex-col w-full">
           {label && (
@@ -31,37 +38,45 @@ export function RHFInternationalPhoneInput<TFormValues extends FieldValues>({ na
             defaultCountry={defaultCountry}
             placeholder={placeholder}
             onChange={(value) => field.onChange(value)}
+            inputProps={{
+              dir: isRTL ? "rtl" : "ltr",
+            }}
             inputClassName={`
-  w-full !h-auto !px-3 !py-2
-  !text-gray-900 dark:!text-gray-100
-  !placeholder-gray-400 dark:!placeholder-gray-500
-  !bg-white dark:!bg-gray-800
-  transition-all duration-200
-  ${fieldState.error ? "!border-red-500 dark:!border-red-400 hover:!border-red-600 dark:hover:!border-red-500 focus:!outline-none focus:!ring-2 focus:!ring-gray-400 focus:!border-gray-400" : "!border-gray-300 dark:!border-gray-700 hover:!border-gray-400 dark:hover:!border-gray-600 focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500"}
-`}
+
+              w-full !h-auto !px-3 !py-2
+              !text-gray-900 dark:!text-gray-100
+              !placeholder-gray-400 dark:!placeholder-gray-500
+              !bg-white dark:!bg-gray-800
+              transition-all duration-200
+              ${inputBorderRadius}
+              ${fieldState.error ? "!border-red-500 dark:!border-red-400 hover:!border-red-600 dark:hover:!border-red-500 focus:!outline-none focus:!ring-2 focus:!ring-gray-400 focus:!border-gray-400" : "!border-gray-300 dark:!border-gray-700 hover:!border-gray-400 dark:hover:!border-gray-600 focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500"}
+            `}
             countrySelectorStyleProps={{
               buttonClassName: `
-  flex items-center !h-auto !px-3 !py-2
-  !bg-white dark:!bg-gray-800
-  !text-gray-900 dark:!text-gray-100
-  border
-  ${fieldState.error ? "!border-red-500 dark:!border-red-400 hover:!border-red-600 dark:hover:!border-red-500" : "!border-gray-300 dark:!border-gray-700 hover:!border-gray-400 dark:hover:!border-gray-600"}
-  focus:!outline-none focus:!ring-2 focus:!ring-blue-500
-  transition-all duration-200
-`,
+                flex items-center !h-auto !px-3 !py-2
+                !bg-white dark:!bg-gray-800
+                !text-gray-900 dark:!text-gray-100
+                border
+                ${selectorBorderRadius}
+                ${fieldState.error ? "!border-red-500 dark:!border-red-400 hover:!border-red-600 dark:hover:!border-red-500" : "!border-gray-300 dark:!border-gray-700 hover:!border-gray-400 dark:hover:!border-gray-600"}
+                focus:!outline-none focus:!ring-2 focus:!ring-blue-500
+                transition-all duration-200
+              `,
               dropdownStyleProps: {
                 className: `
-    absolute z-50 mt-1 w-full
-    !bg-white dark:!bg-gray-800
-    !border !border-gray-300 dark:!border-gray-700
-    !rounded-lg !shadow-lg
-  `,
+                  absolute z-50 mt-1
+                  !min-w-full !w-[min(22rem,80vw)]
+                  !bg-white dark:!bg-gray-800
+                  !border !border-gray-300 dark:!border-gray-700
+                  !rounded-lg !shadow-lg
+                   ${dropdownPosition}
+                `,
                 listItemClassName: `
-    !px-4 !py-2
-    !cursor-pointer
-    !text-gray-900 dark:!text-gray-100
-    hover:!bg-gray-100 dark:hover:!bg-gray-700
-  `,
+                  !px-4 !py-2
+                  !cursor-pointer
+                  !text-gray-900 dark:!text-gray-100
+                  hover:!bg-gray-100 dark:hover:!bg-gray-700
+                `,
                 listItemPreferredClassName: "!font-semibold",
                 listItemSelectedClassName: "!bg-blue-500 !text-white dark:!bg-blue-600",
                 listItemFocusedClassName: "!bg-blue-100 dark:!bg-blue-700",

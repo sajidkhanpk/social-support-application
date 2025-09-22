@@ -1,22 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import type {
-  AutocompleteProps,
-  AutocompleteOption,
-} from "./autocomplete.types";
+import type { AutocompleteProps, AutocompleteOption } from "./autocomplete.types";
+import { useTranslation } from "react-i18next";
 
-const Autocomplete: React.FC<AutocompleteProps> = ({
-  id,
-  options,
-  value,
-  onChange,
-  onInputChange,
-  placeholder = "Type to search...",
-  disabled = false,
-  isLoading = false,
-  noOptionsMessage = "No options found",
-  className = "",
-  renderOption,
-}) => {
+const Autocomplete: React.FC<AutocompleteProps> = ({ id, options, value, onChange, onInputChange, placeholder, disabled = false, isLoading = false, noOptionsMessage, className = "", renderOption, error = false }) => {
+  const { t } = useTranslation("common", {
+    useSuspense: true,
+  });
   const [inputValue, setInputValue] = useState(value?.label || "");
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -32,10 +21,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false);
         setHighlightedIndex(-1);
       }
@@ -47,11 +33,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   // Scroll highlighted option into view
   useEffect(() => {
-    if (
-      highlightedIndex >= 0 &&
-      optionRefs.current[highlightedIndex] &&
-      optionsRef.current
-    ) {
+    if (highlightedIndex >= 0 && optionRefs.current[highlightedIndex] && optionsRef.current) {
       const optionElement = optionRefs.current[highlightedIndex];
       const optionsContainer = optionsRef.current;
 
@@ -64,8 +46,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         if (optionTop < containerTop) {
           optionsContainer.scrollTop = optionTop;
         } else if (optionBottom > containerBottom) {
-          optionsContainer.scrollTop =
-            optionBottom - optionsContainer.offsetHeight;
+          optionsContainer.scrollTop = optionBottom - optionsContainer.offsetHeight;
         }
       }
     }
@@ -99,18 +80,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        const nextIndex =
-          highlightedIndex < filteredOptions.length - 1
-            ? highlightedIndex + 1
-            : 0;
+        const nextIndex = highlightedIndex < filteredOptions.length - 1 ? highlightedIndex + 1 : 0;
         setHighlightedIndex(nextIndex);
         break;
       case "ArrowUp":
         e.preventDefault();
-        const prevIndex =
-          highlightedIndex > 0
-            ? highlightedIndex - 1
-            : filteredOptions.length - 1;
+        const prevIndex = highlightedIndex > 0 ? highlightedIndex - 1 : filteredOptions.length - 1;
         setHighlightedIndex(prevIndex);
         break;
       case "Enter":
@@ -143,10 +118,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         setHighlightedIndex(filteredOptions.length - 1);
         // Scroll to bottom
         setTimeout(() => {
-          if (
-            optionsRef.current &&
-            optionRefs.current[filteredOptions.length - 1]
-          ) {
+          if (optionsRef.current && optionRefs.current[filteredOptions.length - 1]) {
             const lastOption = optionRefs.current[filteredOptions.length - 1];
             optionsRef.current.scrollTop = lastOption!.offsetTop;
           }
@@ -155,13 +127,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     }
   };
 
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
+  const filteredOptions = options.filter((option) => option.label.toLowerCase().includes(inputValue.toLowerCase()));
 
-  const defaultRenderOption = (option: AutocompleteOption) => (
-    <div className="p-2 cursor-pointer">{option.label}</div>
-  );
+  const defaultRenderOption = (option: AutocompleteOption) => <div className="p-2 cursor-pointer">{option.label}</div>;
 
   // Sync input value with value
   useEffect(() => {
@@ -181,15 +149,21 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={placeholder ?? ""}
           disabled={disabled}
-          className="
-        w-full px-3 py-2 border rounded-md focus:outline-none
-        focus:ring-2 focus:ring-blue-500 focus:border-transparent
-        disabled:cursor-not-allowed
-        border-gray-300 bg-white text-gray-900 disabled:bg-gray-100
-        dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:disabled:bg-gray-700
-      "
+          className={`
+            w-full px-3 py-2 border rounded-md focus:outline-none
+            focus:border-transparent
+            disabled:cursor-not-allowed
+            ${
+              error
+                ? ` border-red-600 dark:border-red-400 bg-red-50 dark:bg-red-900/30
+        text-red-700 dark:text-red-200
+        placeholder-red-400 dark:placeholder-red-400
+        focus:ring-red-600 dark:focus:ring-red-400`
+                : `border-gray-300 bg-white text-gray-900 disabled:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:disabled:bg-gray-700 focus:ring-2 focus:ring-blue-500`
+            }
+          `}
         />
         {isLoading && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -210,12 +184,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           {isLoading ? (
             <div className="p-4 text-center text-gray-500 dark:text-gray-400">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto mb-2"></div>
-              Loading...
+              {t("loading")}...
             </div>
           ) : filteredOptions.length === 0 ? (
-            <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-              {noOptionsMessage}
-            </div>
+            <div className="p-4 text-center text-gray-500 dark:text-gray-400">{noOptionsMessage}</div>
           ) : (
             filteredOptions.map((option, index) => (
               <div
@@ -227,19 +199,13 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 onMouseEnter={() => setHighlightedIndex(index)}
                 className={`
               cursor-pointer transition-colors duration-200
-              ${
-                highlightedIndex === index
-                  ? "bg-blue-100 dark:bg-blue-600/30"
-                  : "hover:bg-gray-100 dark:hover:bg-gray-700"
-              }
+              ${highlightedIndex === index ? "bg-blue-100 dark:bg-blue-600/30" : "hover:bg-gray-100 dark:hover:bg-gray-700"}
               ${index === 0 ? "rounded-t-md" : ""}
               ${index === filteredOptions.length - 1 ? "rounded-b-md" : ""}
               px-2 py-1 text-gray-900 dark:text-gray-100
             `}
               >
-                {renderOption
-                  ? renderOption(option)
-                  : defaultRenderOption(option)}
+                {renderOption ? renderOption(option) : defaultRenderOption(option)}
               </div>
             ))
           )}

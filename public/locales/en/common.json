@@ -4,6 +4,8 @@
   "language": "Language",
   "currentLanguage": "Current language",
   "help_me_write": "Help me write",
+  "no_result_found": "No result found",
+  "loading": "Loading",
   "action": {
     "previous": "Previous",
     "next": "Next",

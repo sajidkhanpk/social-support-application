@@ -11,9 +11,6 @@ export default defineConfig({
       "@lib": path.resolve(__dirname, "./src/lib"),
     },
   },
-  optimizeDeps: {
-    exclude: ["google-libphonenumber"],
-  },
   build: {
     chunkSizeWarningLimit: 600,
     rollupOptions: {

@@ -14,6 +14,7 @@ export interface AutocompleteProps {
   placeholder?: string;
   disabled?: boolean;
   isLoading?: boolean;
+  error?: boolean;
   noOptionsMessage?: string;
   className?: string;
   renderOption?: (option: AutocompleteOption) => React.ReactNode;

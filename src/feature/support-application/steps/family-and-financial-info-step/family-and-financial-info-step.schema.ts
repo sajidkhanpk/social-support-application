@@ -1,20 +1,14 @@
 import { z } from "zod";
-import {
-  EmploymentStatus,
-  HousingStatus,
-  MaritalStatus,
-} from "./family-and-financial-info-step.types";
+import { EmploymentStatus, HousingStatus, MaritalStatus } from "./family-and-financial-info-step.types";
 
-export function createFamilyAndFinancialInfoSchema(
-  t: (key: string, options?: any) => string
-) {
+export function createFamilyAndFinancialInfoSchema(t: (key: string, options?: any) => string) {
   const numberFieldSchema = z
     .string()
     .trim()
     .refine((val) => !isNaN(Number(val)) && val !== "", {
       message: t("validations:invalid_value"),
     })
-    .refine((val) => Number(val) > 0, {
+    .refine((val) => Number(val) >= 0, {
       message: t("validations:invalid_value"),
     });
 

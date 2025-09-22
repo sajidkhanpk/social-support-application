@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { Gender } from "./personal-info-step.types";
+import libphonenumber from "google-libphonenumber";
+const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
 export function createPersonalInformationSchema(t: (key: string, options?: any) => string) {
   const stringSchema = z.string(t("validations:required")).trim();
@@ -18,11 +20,7 @@ export function createPersonalInformationSchema(t: (key: string, options?: any) 
     address: stringSchema.min(5, t("validations:string_too_small", { min: 5 })).max(200, t("validations:string_too_big", { max: 200 })),
     phone: stringSchema.refine(async (val) => {
       if (!val) return false;
-
       try {
-        // Dynamically import the library only when needed
-        const libphonenumber = await import("google-libphonenumber");
-        const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
         return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(val));
       } catch (_) {
         return false;

@@ -9,6 +9,13 @@
     "national_id": "الرقم الوطني",
     "dob": "تاريخ الميلاد",
     "gender": "الجنس",
+    "country": "البلد",
+    "select_country": "اختر البلد",
+    "state": "الولاية / المحافظة",
+    "city": "المدينة",
+    "address": "العنوان",
+    "phone": "رقم الهاتف",
+    "phone_placeholder": "أدخل رقم الهاتف",
     "email": "البريد الإلكتروني",
     "select_gender": "اختر الجنس",
     "marital_status": "الحالة الاجتماعية",
@@ -16,7 +23,7 @@
     "dependents": "المعالين",
     "employment_status": "الحالة الوظيفية",
     "select_employment_status": "اختر الحالة الوظيفية",
-    "monthly_income": "الدخل الشهري",
+    "monthly_income": "الدخل الشهري (درهم)",
     "housing_status": "الحالة السكنية",
     "select_housing_status": "اختر الحالة السكنية",
     "descritbe_situation": "صف وضعك...",
@@ -28,8 +35,8 @@
       "female": "أنثى"
     },
     "marital_status_options": {
-      "single": "أعزب/عزباء",
-      "married": "متزوج/متزوجة"
+      "single": "أعزب / عزباء",
+      "married": "متزوج / متزوجة"
     },
     "employment_status_options": {
       "employed": "موظف",
